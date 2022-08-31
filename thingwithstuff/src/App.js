@@ -1,16 +1,20 @@
-import React from "react";
-import Nav from "./components/Nav";
-import ToDo from "./components/Forms";
+import ButtonCounter from './components/ButtonCounter';
+import Navbar from "./components/Navbar";
+import Racers from './components/Racers';
+import RacersClass from './components/RacersClass';
 
-function App() {
+function App(props) {
+
     return (
         <>
-            <Nav />
+            <Navbar name='Brian' city='Chicago'/>
             <div className='container'>
-                <ToDo />
+                <ButtonCounter />
+                {/* <Racers /> */}
+                <RacersClass />
             </div>
         </>
-    );
+    )
 }
 
 export default App;

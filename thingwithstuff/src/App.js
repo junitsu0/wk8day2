@@ -1,7 +1,7 @@
 import ButtonCounter from './components/ButtonCounter';
-import Navbar from "./components/Navbar";
-import Racers from './components/Racers';
-import RacersClass from './components/RacersClass';
+import Navbar from './components/Navbar';
+// import Students from './components/Students';
+import StudentsClass from './components/StudentsClass';
 
 function App(props) {
 
@@ -10,8 +10,8 @@ function App(props) {
             <Navbar name='Brian' city='Chicago'/>
             <div className='container'>
                 <ButtonCounter />
-                {/* <Racers /> */}
-                <RacersClass />
+                {/* <Students /> */}
+                <StudentsClass />
             </div>
         </>
     )

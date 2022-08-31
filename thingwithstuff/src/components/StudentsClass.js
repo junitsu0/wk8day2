@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class RacersClass extends Component {
+export default class StudentsClass extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -11,28 +11,28 @@ export default class RacersClass extends Component {
     }
 
     componentDidMount(){
-        fetch(`https://ergast.com/api/f1/${this.state.season}/${this.state.round}/driverStandings.json`)
+        fetch(`https://kekambas-bs.herokuapp.com/kekambas`)
             .then(res => res.json())
             .then(data => {
-                    let racerStandings = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
-                    this.setState({racers:racerStandings})
+                    let studentStandings = data.MRData.StandingsTable.StandingsLists[0].StudentStandings;
+                    this.setState({students:studentStandings})
                 }
             )
     }
 
     componentDidUpdate(prevProps, prevState){
         if (prevState.round != this.state.round || prevState.season != this.state.season){
-            fetch(`https://ergast.com/api/f1/${this.state.season}/${this.state.round}/driverStandings.json`)
+            fetch(`https://kekambas-bs.herokuapp.com/kekambas`)
                 .then(res => res.json())
                 .then(data => {
-                        let racerStandings = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
-                        this.setState({racers:racerStandings})
+                        let studentStandings = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
+                        this.setState({students:studentStandings})
                     }
                 )
         }
     }
 
-    handleRacerSubmit = (e) => {
+    handleStudentSubmit = (e) => {
         // Prevent default of refreshing page
         e.preventDefault();
         let newSeason = e.target.season.value;
@@ -47,8 +47,8 @@ export default class RacersClass extends Component {
         let tableHeaders = ['#', 'First', 'Last', 'Points', 'Wins', 'Nationality', 'Constructor']
         return (
             <div className='row py-3'>
-                <h4 className="text-center">Driver Standings</h4>
-                <form onSubmit={this.handleRacerSubmit}>
+                <h4 className="text-center">Student Standings</h4>
+                <form onSubmit={this.handleStudentSubmit}>
                     <div className="row">
                         <div className="col-12 col-md-6">
                             <input type="text" className='form-control' name="season" placeholder='Enter Season' />
@@ -63,7 +63,7 @@ export default class RacersClass extends Component {
                         </div>
                     </div>
                 </form>
-                { this.state.racers.length ? (
+                { this.state.students.length ? (
                     <table className='table table-primary table-striped mt-3'>
                     <thead>
                         <tr>
@@ -71,15 +71,11 @@ export default class RacersClass extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.racers.map((racer, idx) => {   
+                        {this.state.students.map((student, idx) => {   
                                 return (<tr key={idx}>
-                                    <th>{racer.position}</th>
-                                    <td>{racer.Driver.givenName}</td>
-                                    <td>{racer.Driver.familyName}</td>
-                                    <td>{racer.points}</td>
-                                    <td>{racer.wins}</td>
-                                    <td>{racer.Driver.nationality}</td>
-                                    <td>{racer.Constructors[0].name}</td>
+                                    <th>{student.id}</th>
+                                    <td>{student.first_name}</td>
+                                    <td>{student.last_name}</td>
                                 </tr>)
                             })}
                         </tbody>

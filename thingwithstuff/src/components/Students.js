@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 
-export default function Racers(props) {
+export default function Students(props) {
     let tableHeaders = ['#', 'First', 'Last', 'Points', 'Wins', 'Nationality', 'Constructor']
-    // Set a state for racers - initial state of [] and setRacers is function to change state value of racers
-    const [racers, setRacers] = useState([]);
+    const [students, setStudents] = useState([]);
 
     const [season, setSeason] = useState(2022);
     const [round, setRound] = useState(1)
@@ -11,16 +10,16 @@ export default function Racers(props) {
     // Create an effect -> function to execute after every render
     useEffect(() => {
         console.log('useEffect effect callback executed.')
-        fetch(`https://ergast.com/api/f1/${season}/${round}/driverStandings.json`)
+        fetch(`kekambas-bs.herokuapp.com/kekambas`)
             .then(res => res.json())
             .then(data => {
-                let racerStandings = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
-                setRacers(racerStandings);
+                let studentStandings = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
+                setStudents(studentStandings);
             })
     }, [season, round])
 
     // Function to be exectuted when the name form is submitteed
-    function handleRacerSubmit(e){
+    function handleStudentSubmit(e){
         // Prevent default of refreshing page
         e.preventDefault();
         let newSeason = e.target.season.value;
@@ -31,8 +30,8 @@ export default function Racers(props) {
 
     return (
         <div className='row py-3'>
-            <h4 className="text-center">Driver Standings</h4>
-            <form onSubmit={handleRacerSubmit}>
+            <h4 className="text-center">Student Standings</h4>
+            <form onSubmit={handleStudentSubmit}>
                 <div className="row">
                     <div className="col-12 col-md-6">
                         <input type="text" className='form-control' name="season" placeholder='Enter Season' />
@@ -54,15 +53,11 @@ export default function Racers(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {racers.map((racer, idx) => {   
+                    {students.map((student, idx) => {   
                         return (<tr key={idx}>
-                            <th>{racer.position}</th>
-                            <td>{racer.Driver.givenName}</td>
-                            <td>{racer.Driver.familyName}</td>
-                            <td>{racer.points}</td>
-                            <td>{racer.wins}</td>
-                            <td>{racer.Driver.nationality}</td>
-                            <td>{racer.Constructors[0].name}</td>
+                            <th>{student.id}</th>
+                            <td>{student.first_name}</td>
+                            <td>{student.last_name}</td>
                         </tr>)
                     })}
                 </tbody>

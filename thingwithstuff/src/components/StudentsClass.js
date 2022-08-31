@@ -11,25 +11,13 @@ export default class StudentsClass extends Component {
     }
 
     componentDidMount(){
-        fetch(`https://kekambas-bs.herokuapp.com/kekambas`)
+        fetch(`https://kekambas-bs.herokuapp.com/kekambas.json`)
             .then(res => res.json())
             .then(data => {
                     let studentStandings = data.MRData.StandingsTable.StandingsLists[0].StudentStandings;
                     this.setState({students:studentStandings})
                 }
             )
-    }
-
-    componentDidUpdate(prevProps, prevState){
-        if (prevState.round != this.state.round || prevState.season != this.state.season){
-            fetch(`https://kekambas-bs.herokuapp.com/kekambas`)
-                .then(res => res.json())
-                .then(data => {
-                        let studentStandings = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
-                        this.setState({students:studentStandings})
-                    }
-                )
-        }
     }
 
     handleStudentSubmit = (e) => {
@@ -44,7 +32,7 @@ export default class StudentsClass extends Component {
     }
 
     render() {
-        let tableHeaders = ['#', 'First', 'Last', 'Points', 'Wins', 'Nationality', 'Constructor']
+        let tableHeaders = ['ID', 'First', 'Last']
         return (
             <div className='row py-3'>
                 <h4 className="text-center">Student Standings</h4>
